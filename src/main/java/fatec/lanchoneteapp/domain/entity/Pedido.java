@@ -1,11 +1,13 @@
+package fatec.lanchoneteapp.domain.entity;
+
 import java.time.LocalDate;
 
 public class Pedido {
-long nPedido;
-long valorTotal;
-Produto produto;
-LocalDate data;
-String status;
+    private long nPedido;
+    private long valorTotal;
+    private Produto produto;
+    private LocalDate data;
+    private String status;
 
     public LocalDate getData() {
         return data;
@@ -18,8 +20,6 @@ String status;
     public Produto getProduto() {
         return produto;
     }
-
-   
 
     public String getStatus() {
         return status;

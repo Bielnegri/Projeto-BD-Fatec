@@ -1,9 +1,10 @@
-class Produto{
+package fatec.lanchoneteapp.domain.entity;
 
-int idProd;
-String nome;
-long qntdEstoq;
-long valorUn;
+class Produto {
+    private int idProd;
+    private String nome;
+    private long qntdEstoq;
+    private long valorUn;
 
     public int getIdProd() {
         return idProd;
@@ -36,7 +37,6 @@ long valorUn;
     public void setValorUn(long valorUn) {
         this.valorUn = valorUn;
     }
-
 
 
 }

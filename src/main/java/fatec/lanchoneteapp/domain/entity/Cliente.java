@@ -1,7 +1,9 @@
+package fatec.lanchoneteapp.domain.entity;
+
 public class Cliente {
-  String nome;
-String tel;
-String logradouro;
+    String nome;
+    String tel;
+    String logradouro;
 
     public String getLogradouro() {
         return logradouro;

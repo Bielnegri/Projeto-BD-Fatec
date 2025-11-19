@@ -1,4 +1,4 @@
-package fatec.lanchoneteapp.app;
+package fatec.lanchoneteapp.start;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fatec/lanchoneteapp/app/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fatec/lanchoneteapp/start/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);

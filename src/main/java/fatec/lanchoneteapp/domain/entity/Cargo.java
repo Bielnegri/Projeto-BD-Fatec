@@ -1,8 +1,9 @@
-public class Cargo {
+package fatec.lanchoneteapp.domain.entity;
 
-    String nome;
-    long salario;
-    String funcao;
+public class Cargo {
+    private String nome;
+    private long salario;
+    private String funcao;
 
     public String getFuncao() {
         return funcao;

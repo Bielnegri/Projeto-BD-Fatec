@@ -1,9 +1,12 @@
+package fatec.lanchoneteapp.domain.entity;
+
 import java.time.LocalDate;
+
 public class Funcionario {
-  String nome;
-    Cargo cargo;
-    String tel;
-    LocalDate dataContrat;
+    private String nome;
+    private Cargo cargo;
+    private String tel;
+    private LocalDate dataContrat;
 
     public Cargo getCargo() {
         return cargo;
