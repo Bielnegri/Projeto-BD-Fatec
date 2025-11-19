@@ -28,7 +28,7 @@ Novas funcionalidades, módulos e aprimoramentos arquiteturais ainda estão send
 - [Padrões de Projeto Utilizados](#padrões-de-projeto-utilizados)
 - [Diagramas](#diagramas)
 - [Pré-requisitos](#pré-requisitos)
-- [Equipe de Desenvolvimento](#-equipe-de-desenvolvimento)
+- [Equipe de Desenvolvimento](#equipe-de-desenvolvimento)
 - [Licença](#-licença)
 
 ---
