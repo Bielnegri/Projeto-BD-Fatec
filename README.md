@@ -1,14 +1,23 @@
-# Lanchonete App
+<h1 align="center">Lanchonete App</h1>
 
-<!-- Badges -->
-![Java](https://img.shields.io/badge/Java-23-orange?style=flat-square)
-![Architecture](https://img.shields.io/badge/Clean%20Architecture-✔-brightgreen?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Last Commit](https://img.shields.io/github/last-commit/andrelamego/lanchonete-app?color=blue&style=flat-square)
-![Commit Activity](https://img.shields.io/github/commit-activity/m/andrelamego/lanchonete-app?color=yellow&style=flat-square)
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-23-orange?style=flat-square" />
+  <img src="https://img.shields.io/badge/Clean%20Architecture-✔-brightgreen?style=flat-square" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
+  <img src="https://img.shields.io/github/last-commit/andrelamego/lanchonete-app?color=blue&style=flat-square" />
+  <img src="https://img.shields.io/github/commit-activity/m/andrelamego/lanchonete-app?color=yellow&style=flat-square" />
+  <img src="https://img.shields.io/badge/status-Fase%20Inicial%20de%20Desenvolvimento-red?style=flat-square" />
+</p>
+
 ---
 
 Aplicação em Java para gerenciamento de uma lanchonete, incluindo controle de funcionários, cargos, produtos e pedidos.
+
+##  Status do Desenvolvimento
+
+🚧 O projeto encontra-se na fase **inicial de desenvolvimento**.  
+Novas funcionalidades, módulos e aprimoramentos arquiteturais ainda estão sendo planejados e implementados.
+
 
 ## Índice
 
@@ -16,7 +25,11 @@ Aplicação em Java para gerenciamento de uma lanchonete, incluindo controle de 
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias](#tecnologias)
 - [Estrutura do Projeto](#estrutura-do-projeto)
+- [Padrões de Projeto Utilizados](#padrões-de-projeto-utilizados)
+- [Diagramas](#diagramas)
 - [Pré-requisitos](#pré-requisitos)
+- [Equipe de Desenvolvimento](#-equipe-de-desenvolvimento)
+- [Licença](#-licença)
 
 ---
 
@@ -45,7 +58,7 @@ Algumas funcionalidades previstas:
 
 ## Estrutura do Projeto
 
-Estrutura contruída seguindo os princípios da Clean Architecture:
+Estrutura construída seguindo os princípios da Clean Architecture:
 
 - `domain/entity`: contém as entidades de domínio da aplicação.
 - `domain/factory`: contém o padrão criacional Factory para as entidades `Pedido.java` e `Historico.java`.
@@ -53,16 +66,27 @@ Estrutura contruída seguindo os princípios da Clean Architecture:
 - `application/gateway`: interface para comunicação com APIs externas.
 - `application/service`: camada de serviços/regras de negócio.
 - `application/usecase`: concentra os casos de uso da aplicação, organizando fluxos específicos que orquestram serviços
-- `adapters/gateway`: classes para comunição com APIs externas.
+- `adapters/gateway`: classes para comunicação com APIs externas.
 - `adapters/repository`: classes para conexão/comunicação com o banco de dados.
 - `adapters/ui`: controladores para comunicação da interface com o sistema.
 - `resources`: arquivos de configuração, scripts, etc.
+
+## Padrões de Projeto Utilizados
+
+- **Clean Architecture** para isolamento de camadas.
+- **Factory Pattern** para criação das entidades `Pedido` e `Historico`.
+- **Facade Pattern** para centralização das operações de alto nível.
+- **Repository Pattern** para abstração de banco de dados.
+- **Use Cases** para organização dos fluxos de negócio.
+
+Esses padrões garantem flexibilidade, testabilidade e baixo acoplamento.
 
 ## Diagramas
 
 Abaixo estão os principais diagramas que representam a arquitetura e o fluxo da aplicação:
 
 ### 1. Diagrama de Pacotes
+> Estrutura geral dos módulos seguindo Clean Architecture.
 ![Diagrama de Pacotes](./docs/diagrams/pkg-diagram.png)
 
 ### 2. Diagrama de Classes
@@ -80,7 +104,7 @@ Abaixo estão os principais diagramas que representam a arquitetura e o fluxo da
   - IntelliJ IDEA, Eclipse, VS Code com extensão Java, ou outra de sua preferência
 
 ---
-## 👨‍💻 Equipe de Desenvolvimento
+## Equipe de Desenvolvimento
 
 Este projeto está sendo construído com dedicação por desenvolvedores comprometidos com qualidade, boas práticas e arquitetura limpa. Cada membro contribuiu com perspectivas diferentes que elevaram o nível do produto.
 
