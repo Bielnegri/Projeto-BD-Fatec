@@ -1,6 +1,6 @@
 package fatec.lanchoneteapp.domain.entity;
 
-class Produto {
+public class Produto {
     private int idProd;
     private String nome;
     private long qntdEstoq;

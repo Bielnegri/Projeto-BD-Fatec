@@ -1,11 +1,12 @@
 package fatec.lanchoneteapp.domain.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Pedido {
     private long nPedido;
     private long valorTotal;
-    private Produto produto;
+    private List<Produto> produtos;
     private LocalDate data;
     private String status;
 
@@ -17,8 +18,8 @@ public class Pedido {
         return nPedido;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
     public String getStatus() {
@@ -37,8 +38,8 @@ public class Pedido {
         this.nPedido = nPedido;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public void setStatus(String status) {
