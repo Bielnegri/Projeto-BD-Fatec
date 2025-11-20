@@ -1,4 +1,6 @@
 package fatec.lanchoneteapp.adapters.gateway;
 
-public class GatewayEntrega {
+import fatec.lanchoneteapp.application.gateway.IEntrega;
+
+public class GatewayEntrega implements IEntrega {
 }
