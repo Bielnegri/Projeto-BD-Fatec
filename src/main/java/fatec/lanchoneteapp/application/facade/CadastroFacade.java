@@ -127,37 +127,34 @@ public interface CadastroFacade {
      * Registra um novo produto no sistema.
      *
      * @param produto um objeto ProdutoDTO contendo as informações do produto a ser criado
-     * @return um objeto ProdutoDTO representando o produto criado, incluindo os dados registrados no sistema
      */
-    ProdutoDTO novoProduto(ProdutoDTO produto);
+    void novoProduto(ProdutoDTO produto) throws SQLException;
     /**
      * Busca os detalhes de um produto específico com base no seu ID.
      *
      * @param idProduto o ID do produto a ser buscado
      * @return os detalhes do produto encapsulados em um objeto ProdutoDTO
      */
-    ProdutoDTO buscarProduto(int idProduto);
+    ProdutoDTO buscarProduto(int idProduto) throws SQLException;
     /**
      * Atualiza as informações de um produto existente no sistema.
      *
      * @param produto os dados atualizados do produto encapsulados em um objeto ProdutoDTO
-     * @return o objeto ProdutoDTO representando o produto atualizado
      */
-    ProdutoDTO atualizarProduto(ProdutoDTO produto);
+    void atualizarProduto(ProdutoDTO produto) throws SQLException;
     /**
      * Remove um produto do sistema com base no seu ID.
      *
      * @param idProduto o ID do produto a ser removido
-     * @return um objeto ProdutoDTO representando o produto removido
      */
-    ProdutoDTO removerProduto(int idProduto);
+    void removerProduto(int idProduto) throws SQLException;
 
     /**
      * Retorna uma lista de todos os produtos cadastrados no sistema.
      *
      * @return uma lista de objetos ProdutoDTO representando os produtos cadastrados
      */
-    List<ProdutoDTO> listarProdutos();
+    List<ProdutoDTO> listarProdutos() throws SQLException;
 
     //CATEGORIA
     /**

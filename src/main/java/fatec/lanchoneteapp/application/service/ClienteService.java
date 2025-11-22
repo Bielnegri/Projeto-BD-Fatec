@@ -47,6 +47,11 @@ public class ClienteService {
 
     //TODO: criar busca por nome (ou cpf/email) no repository e alterar aqui
     public boolean validarCliente(Cliente cliente) throws SQLException {
-        return clienteRepository.buscarPorID(cliente) == null;
+        try{
+            buscarCliente(cliente.getId());
+            return false;
+        } catch(ClienteNaoEncontradoException e){
+            return true;
+        }
     }
 }

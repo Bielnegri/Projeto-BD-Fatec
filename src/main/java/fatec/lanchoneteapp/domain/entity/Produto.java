@@ -10,10 +10,16 @@ public class Produto {
     public Produto() {
         super();
     }
-
     public Produto(int id) {
         super();
         this.id = id;
+    }
+    public Produto(int id, String nome, int qntdEstoq, double valorUn, Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.qntdEstoq = qntdEstoq;
+        this.valorUn = valorUn;
+        this.categoria = categoria;
     }
 
     public int getId() {

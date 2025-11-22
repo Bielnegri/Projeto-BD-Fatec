@@ -4,12 +4,16 @@ import fatec.lanchoneteapp.application.dto.*;
 import fatec.lanchoneteapp.application.exception.ClienteInvalidoException;
 import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
 import fatec.lanchoneteapp.application.exception.FuncionarioInvalidoException;
+import fatec.lanchoneteapp.application.exception.ProdutoNaoEncontradoException;
 import fatec.lanchoneteapp.application.mapper.ClienteMapper;
 import fatec.lanchoneteapp.application.mapper.FuncionarioMapper;
+import fatec.lanchoneteapp.application.mapper.ProdutoMapper;
 import fatec.lanchoneteapp.application.service.ClienteService;
 import fatec.lanchoneteapp.application.service.FuncionarioService;
+import fatec.lanchoneteapp.application.service.ProdutoService;
 import fatec.lanchoneteapp.domain.entity.Cliente;
 import fatec.lanchoneteapp.domain.entity.Funcionario;
+import fatec.lanchoneteapp.domain.entity.Produto;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,9 +26,13 @@ public class CadastroFacadeImpl implements CadastroFacade{
     private final FuncionarioService funcionarioService;
     private final FuncionarioMapper funcionarioMapper = new FuncionarioMapper();
 
-    public CadastroFacadeImpl(ClienteService clienteService, FuncionarioService funcionarioService) {
+    private final ProdutoService produtoService;
+    private final ProdutoMapper produtoMapper = new ProdutoMapper();
+
+    public CadastroFacadeImpl(ClienteService clienteService, FuncionarioService funcionarioService, ProdutoService produtoService) {
         this.clienteService = clienteService;
         this.funcionarioService = funcionarioService;
+        this.produtoService = produtoService;
     }
 
     @Override
@@ -117,28 +125,32 @@ public class CadastroFacadeImpl implements CadastroFacade{
     //==================================================================================
 
     @Override
-    public ProdutoDTO novoProduto(ProdutoDTO produto) {
-        return null;
+    public void novoProduto(ProdutoDTO produtoDTO) throws SQLException {
+        produtoService.criarProduto(produtoMapper.toEntity(produtoDTO));
     }
 
     @Override
-    public ProdutoDTO buscarProduto(int idProduto) {
-        return null;
+    public ProdutoDTO buscarProduto(int idProduto) throws SQLException, ProdutoNaoEncontradoException {
+        return produtoMapper.toDTO(produtoService.buscarProduto(idProduto));
     }
 
     @Override
-    public ProdutoDTO atualizarProduto(ProdutoDTO produto) {
-        return null;
+    public void atualizarProduto(ProdutoDTO produtoDTO) throws SQLException {
+        produtoService.atualizarProduto(produtoMapper.toEntity(produtoDTO));
     }
 
     @Override
-    public ProdutoDTO removerProduto(int idProduto) {
-        return null;
+    public void removerProduto(int idProduto) throws SQLException {
+        Produto produto = produtoService.buscarProduto(idProduto);
+        produtoService.excluirProduto(produto);
     }
 
     @Override
-    public List<ProdutoDTO> listarProdutos() {
-        return List.of();
+    public List<ProdutoDTO> listarProdutos() throws SQLException {
+        return produtoService.listarProdutos()
+                .stream()
+                .map(produtoMapper::toDTO)
+                .toList();
     }
 
     //==================================================================================
