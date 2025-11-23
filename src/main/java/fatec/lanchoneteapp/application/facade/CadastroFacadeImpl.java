@@ -1,0 +1,182 @@
+package fatec.lanchoneteapp.application.facade;
+
+import fatec.lanchoneteapp.application.dto.*;
+import fatec.lanchoneteapp.application.exception.ClienteInvalidoException;
+import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
+import fatec.lanchoneteapp.application.exception.FuncionarioInvalidoException;
+import fatec.lanchoneteapp.application.exception.ProdutoNaoEncontradoException;
+import fatec.lanchoneteapp.application.mapper.ClienteMapper;
+import fatec.lanchoneteapp.application.mapper.FuncionarioMapper;
+import fatec.lanchoneteapp.application.mapper.ProdutoMapper;
+import fatec.lanchoneteapp.application.service.ClienteService;
+import fatec.lanchoneteapp.application.service.FuncionarioService;
+import fatec.lanchoneteapp.application.service.ProdutoService;
+import fatec.lanchoneteapp.domain.entity.Cliente;
+import fatec.lanchoneteapp.domain.entity.Funcionario;
+import fatec.lanchoneteapp.domain.entity.Produto;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class CadastroFacadeImpl implements CadastroFacade{
+
+    private final ClienteService clienteService;
+    private final ClienteMapper clienteMapper = new ClienteMapper();
+
+    private final FuncionarioService funcionarioService;
+    private final FuncionarioMapper funcionarioMapper = new FuncionarioMapper();
+
+    private final ProdutoService produtoService;
+    private final ProdutoMapper produtoMapper = new ProdutoMapper();
+
+    public CadastroFacadeImpl(ClienteService clienteService, FuncionarioService funcionarioService, ProdutoService produtoService) {
+        this.clienteService = clienteService;
+        this.funcionarioService = funcionarioService;
+        this.produtoService = produtoService;
+    }
+
+    @Override
+    public void novoCliente(ClienteDTO clienteDTO) throws SQLException, ClienteInvalidoException {
+        Cliente cliente = clienteMapper.toEntity(clienteDTO);
+        clienteService.criarCliente(cliente);
+    }
+
+    @Override
+    public ClienteDTO buscarCliente(int idCliente) throws SQLException, ClienteNaoEncontradoException {
+        return clienteMapper.toDTO(clienteService.buscarCliente(idCliente));
+    }
+
+    @Override
+    public void atualizarCliente(ClienteDTO clienteDTO) throws SQLException {
+        clienteService.atualizarCliente(clienteMapper.toEntity(clienteDTO));
+    }
+
+    @Override
+    public void removerCliente(int idCliente) throws SQLException, ClienteNaoEncontradoException {
+        Cliente cliente = clienteService.buscarCliente(idCliente);
+        clienteService.excluirCliente(cliente);
+    }
+
+    @Override
+    public List<ClienteDTO> listarClientes() throws SQLException {
+        return clienteService.listarClientes().stream()
+                .map(clienteMapper::toDTO)
+                .toList();
+    }
+
+    //==================================================================================
+
+    @Override
+    public void novoFuncionario(FuncionarioDTO funcionarioDTO) throws SQLException, FuncionarioInvalidoException {
+        Funcionario funcionario = funcionarioMapper.toEntity(funcionarioDTO);
+        funcionarioService.criarFuncionario(funcionario);
+    }
+
+    @Override
+    public FuncionarioDTO buscarFuncionario(int idFuncionario) throws SQLException, FuncionarioInvalidoException {
+        return funcionarioMapper.toDTO(funcionarioService.buscarFuncionario(idFuncionario));
+    }
+
+    @Override
+    public void atualizarFuncionario(FuncionarioDTO funcionarioDTO) throws SQLException {
+        funcionarioService.atualizarFuncionario(funcionarioMapper.toEntity(funcionarioDTO));
+    }
+
+    @Override
+    public void removerFuncionario(int idFuncionario) throws SQLException, ClienteNaoEncontradoException {
+        Funcionario funcionario = funcionarioService.buscarFuncionario(idFuncionario);
+        funcionarioService.excluirFuncionario(funcionario);
+    }
+
+    @Override
+    public List<FuncionarioDTO> listarFuncionarios() throws SQLException {
+        return funcionarioService.listarFuncionarios().stream()
+                .map(funcionarioMapper::toDTO)
+                .toList();
+    }
+
+    //==================================================================================
+
+    @Override
+    public CargoDTO novoCargo(CargoDTO cargo) {
+        return null;
+    }
+
+    @Override
+    public CargoDTO buscarCargo(int idCargo) {
+        return null;
+    }
+
+    @Override
+    public CargoDTO atualizarCargo(CargoDTO cargo) {
+        return null;
+    }
+
+    @Override
+    public CargoDTO removerCargo(int idCargo) {
+        return null;
+    }
+
+    @Override
+    public List<CargoDTO> listarCargos() {
+        return List.of();
+    }
+
+    //==================================================================================
+
+    @Override
+    public void novoProduto(ProdutoDTO produtoDTO) throws SQLException {
+        produtoService.criarProduto(produtoMapper.toEntity(produtoDTO));
+    }
+
+    @Override
+    public ProdutoDTO buscarProduto(int idProduto) throws SQLException, ProdutoNaoEncontradoException {
+        return produtoMapper.toDTO(produtoService.buscarProduto(idProduto));
+    }
+
+    @Override
+    public void atualizarProduto(ProdutoDTO produtoDTO) throws SQLException {
+        produtoService.atualizarProduto(produtoMapper.toEntity(produtoDTO));
+    }
+
+    @Override
+    public void removerProduto(int idProduto) throws SQLException {
+        Produto produto = produtoService.buscarProduto(idProduto);
+        produtoService.excluirProduto(produto);
+    }
+
+    @Override
+    public List<ProdutoDTO> listarProdutos() throws SQLException {
+        return produtoService.listarProdutos()
+                .stream()
+                .map(produtoMapper::toDTO)
+                .toList();
+    }
+
+    //==================================================================================
+
+    @Override
+    public CategoriaDTO novaCategoria(CategoriaDTO categoria) {
+        return null;
+    }
+
+    @Override
+    public CategoriaDTO buscarCategoria(int idCategoria) {
+        return null;
+    }
+
+    @Override
+    public CategoriaDTO atualizarCategoria(CategoriaDTO categoria) {
+        return null;
+    }
+
+    @Override
+    public CategoriaDTO removerCategoria(int idCategoria) {
+        return null;
+    }
+
+    @Override
+    public List<CategoriaDTO> listarCategorias() {
+        return List.of();
+    }
+}
