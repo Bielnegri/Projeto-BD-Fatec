@@ -6,6 +6,22 @@ public class Cargo {
     private double salario;
     private String descricao;
 
+    public Cargo() {}
+    public Cargo(int id) {
+        this.id = id;
+    }
+    public Cargo(String nome, double salario, String descricao) {
+        this.nome = nome;
+        this.salario = salario;
+        this.descricao = descricao;
+    }
+    public Cargo(int id, String nome, double salario, String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.salario = salario;
+        this.descricao = descricao;
+    }
+
     public int getId() {
         return id;
     }

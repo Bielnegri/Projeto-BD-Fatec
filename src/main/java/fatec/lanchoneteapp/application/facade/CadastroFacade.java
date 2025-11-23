@@ -90,37 +90,34 @@ public interface CadastroFacade {
      * Cria um novo cargo com base nas informações fornecidas.
      *
      * @param cargo o objeto CargoDTO que contém os dados do cargo a ser criado
-     * @return o objeto CargoDTO representando o cargo criado
      */
-    CargoDTO novoCargo(CargoDTO cargo);
+    void novoCargo(CargoDTO cargo) throws SQLException;
     /**
      * Busca os detalhes de um cargo específico com base no seu ID.
      *
      * @param idCargo o identificador único do cargo a ser buscado
      * @return os detalhes do cargo encapsulados em um objeto CargoDTO
      */
-    CargoDTO buscarCargo(int idCargo);
+    CargoDTO buscarCargo(int idCargo) throws SQLException;
     /**
      * Atualiza as informações de um cargo existente.
      *
      * @param cargo um objeto CargoDTO contendo os dados atualizados do cargo
-     * @return um objeto CargoDTO representando o cargo atualizado
      */
-    CargoDTO atualizarCargo(CargoDTO cargo);
+    void atualizarCargo(CargoDTO cargo) throws SQLException;
     /**
      * Remove o cargo identificado pelo ID especificado do sistema.
      *
      * @param idCargo o ID do cargo a ser removido
-     * @return os detalhes do cargo removido encapsulados em um objeto CargoDTO
      */
-    CargoDTO removerCargo(int idCargo);
+    void removerCargo(int idCargo) throws SQLException;
 
     /**
      * Retorna uma lista de todos os cargos cadastrados no sistema.
      *
      * @return uma lista de objetos CargoDTO representando os cargos cadastrados
      */
-    List<CargoDTO> listarCargos();
+    List<CargoDTO> listarCargos() throws SQLException;
 
     //PRODUTO
     /**

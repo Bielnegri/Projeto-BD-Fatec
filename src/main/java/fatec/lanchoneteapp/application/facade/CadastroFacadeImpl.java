@@ -1,16 +1,16 @@
 package fatec.lanchoneteapp.application.facade;
 
 import fatec.lanchoneteapp.application.dto.*;
-import fatec.lanchoneteapp.application.exception.ClienteInvalidoException;
-import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
-import fatec.lanchoneteapp.application.exception.FuncionarioInvalidoException;
-import fatec.lanchoneteapp.application.exception.ProdutoNaoEncontradoException;
+import fatec.lanchoneteapp.application.exception.*;
+import fatec.lanchoneteapp.application.mapper.CargoMapper;
 import fatec.lanchoneteapp.application.mapper.ClienteMapper;
 import fatec.lanchoneteapp.application.mapper.FuncionarioMapper;
 import fatec.lanchoneteapp.application.mapper.ProdutoMapper;
+import fatec.lanchoneteapp.application.service.CargoService;
 import fatec.lanchoneteapp.application.service.ClienteService;
 import fatec.lanchoneteapp.application.service.FuncionarioService;
 import fatec.lanchoneteapp.application.service.ProdutoService;
+import fatec.lanchoneteapp.domain.entity.Cargo;
 import fatec.lanchoneteapp.domain.entity.Cliente;
 import fatec.lanchoneteapp.domain.entity.Funcionario;
 import fatec.lanchoneteapp.domain.entity.Produto;
@@ -29,10 +29,17 @@ public class CadastroFacadeImpl implements CadastroFacade{
     private final ProdutoService produtoService;
     private final ProdutoMapper produtoMapper = new ProdutoMapper();
 
-    public CadastroFacadeImpl(ClienteService clienteService, FuncionarioService funcionarioService, ProdutoService produtoService) {
+    private final CargoService cargoService;
+    private final CargoMapper cargoMapper = new CargoMapper();
+
+    public CadastroFacadeImpl(ClienteService clienteService,
+                              FuncionarioService funcionarioService,
+                              ProdutoService produtoService,
+                              CargoService cargoService) {
         this.clienteService = clienteService;
         this.funcionarioService = funcionarioService;
         this.produtoService = produtoService;
+        this.cargoService = cargoService;
     }
 
     @Override
@@ -73,7 +80,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
     }
 
     @Override
-    public FuncionarioDTO buscarFuncionario(int idFuncionario) throws SQLException, FuncionarioInvalidoException {
+    public FuncionarioDTO buscarFuncionario(int idFuncionario) throws SQLException, FuncionarioNaoEncontradoException {
         return funcionarioMapper.toDTO(funcionarioService.buscarFuncionario(idFuncionario));
     }
 
@@ -83,7 +90,7 @@ public class CadastroFacadeImpl implements CadastroFacade{
     }
 
     @Override
-    public void removerFuncionario(int idFuncionario) throws SQLException, ClienteNaoEncontradoException {
+    public void removerFuncionario(int idFuncionario) throws SQLException, FuncionarioNaoEncontradoException {
         Funcionario funcionario = funcionarioService.buscarFuncionario(idFuncionario);
         funcionarioService.excluirFuncionario(funcionario);
     }
@@ -98,28 +105,32 @@ public class CadastroFacadeImpl implements CadastroFacade{
     //==================================================================================
 
     @Override
-    public CargoDTO novoCargo(CargoDTO cargo) {
-        return null;
+    public void novoCargo(CargoDTO cargoDTO) throws SQLException, CargoInvalidoException {
+        Cargo cargo = cargoMapper.toEntity(cargoDTO);
+        cargoService.criarCargo(cargo);
     }
 
     @Override
-    public CargoDTO buscarCargo(int idCargo) {
-        return null;
+    public CargoDTO buscarCargo(int idCargo) throws SQLException, CargoNaoEncontradoException {
+        return cargoMapper.toDTO(cargoService.buscarCargo(idCargo));
     }
 
     @Override
-    public CargoDTO atualizarCargo(CargoDTO cargo) {
-        return null;
+    public void atualizarCargo(CargoDTO cargoDTO) throws SQLException {
+        cargoService.atualizarCargo(cargoMapper.toEntity(cargoDTO));
     }
 
     @Override
-    public CargoDTO removerCargo(int idCargo) {
-        return null;
+    public void removerCargo(int idCargo) throws SQLException, CargoNaoEncontradoException {
+        Cargo cargo = cargoService.buscarCargo(idCargo);
+        cargoService.excluirCargo(cargo);
     }
 
     @Override
-    public List<CargoDTO> listarCargos() {
-        return List.of();
+    public List<CargoDTO> listarCargos() throws SQLException {
+        return cargoService.listarCargos().stream()
+                .map(cargoMapper::toDTO)
+                .toList();
     }
 
     //==================================================================================
