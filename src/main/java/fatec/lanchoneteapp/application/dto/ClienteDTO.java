@@ -10,12 +10,35 @@ public record ClienteDTO(
         String cep,
         String complemento
 ) {
-    public int getId() { return id; }
-    public String getNome() { return nome; }
-    public String getTel() { return tel; }
-    public String getCpf() { return cpf; }
-    public String getLogradouro() { return logradouro; }
-    public int getNumero() { return numero; }
-    public String getCep() { return cep; }
-    public String getComplemento() { return complemento; }
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
 }

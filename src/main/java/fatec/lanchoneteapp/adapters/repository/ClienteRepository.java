@@ -40,11 +40,11 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getTel());
         ps.setString(3, entidade.getCpf());
-        ps.setString(3, entidade.getLogradouro());
-        ps.setInt(4, entidade.getNumero());
-        ps.setString(5, entidade.getCep());
-        ps.setString(6, entidade.getComplemento());
-        ps.setInt(7, entidade.getId());
+        ps.setString(4, entidade.getLogradouro());
+        ps.setInt(5, entidade.getNumero());
+        ps.setString(6, entidade.getCep());
+        ps.setString(7, entidade.getComplemento());
+        ps.setInt(8, entidade.getId());
         ps.execute();
         ps.close();
     }
@@ -81,7 +81,7 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
         }
 
         if(cont == 0){
-            entidade = new Cliente();
+            return null;
         }
 
         rs.close();

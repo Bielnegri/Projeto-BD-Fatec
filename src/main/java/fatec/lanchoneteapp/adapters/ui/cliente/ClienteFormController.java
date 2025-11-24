@@ -17,6 +17,7 @@ public class ClienteFormController {
 
     @FXML private Button btnVoltarCliente;
 
+    private int idCliente;
     @FXML private TextField tfNomeCliente;
     @FXML private TextField tfTelefoneCliente;
     @FXML private TextField tfCPFCliente;
@@ -33,25 +34,54 @@ public class ClienteFormController {
 
     @FXML
     public void onSalvarClick() {
-        ClienteDTO clienteDTO = new ClienteDTO(
-            0,
-            tfNomeCliente.getText(),
-            tfTelefoneCliente.getText(),
-            tfCPFCliente.getText(),
-            tfLogradouroCliente.getText(),
-            Integer.parseInt(tfNumeroCliente.getText()),
-            tfCEPCliente.getText(),
-            tfComplementoCliente.getText()
-        );
+        if(!validarCampos())
+            return;
 
-        try {
-            cadastroFacade.novoCliente(clienteDTO);
-            criarInfoAlert("Sucesso!", "Cliente inserido com sucesso");
-            onVoltarClick();
-        } catch (ClienteInvalidoException e) {
-            criarErrorAlert("Cliente inválido!", e.getMessage());
-        } catch (SQLException sql) {
-            criarErrorAlert("Ocorreu um erro", sql.getMessage());
+        if(idCliente > 0){
+            ClienteDTO clienteDTO = new ClienteDTO(
+                    idCliente,
+                    tfNomeCliente.getText(),
+                    tfTelefoneCliente.getText(),
+                    tfCPFCliente.getText(),
+                    tfLogradouroCliente.getText(),
+                    Integer.parseInt(tfNumeroCliente.getText()),
+                    tfCEPCliente.getText(),
+                    tfComplementoCliente.getText()
+            );
+
+            try {
+                cadastroFacade.atualizarCliente(clienteDTO);
+
+                criarInfoAlert("Sucesso!", "Cliente atualizado com sucesso.");
+                onVoltarClick();
+            } catch (ClienteInvalidoException e) {
+                criarErrorAlert("Cliente inválido!", e.getMessage());
+            } catch (SQLException sql) {
+                criarErrorAlert("Ocorreu um erro", sql.getMessage());
+            }
+        }
+        else {
+            ClienteDTO clienteDTO = new ClienteDTO(
+                    0,
+                    tfNomeCliente.getText(),
+                    tfTelefoneCliente.getText(),
+                    tfCPFCliente.getText(),
+                    tfLogradouroCliente.getText(),
+                    Integer.parseInt(tfNumeroCliente.getText()),
+                    tfCEPCliente.getText(),
+                    tfComplementoCliente.getText()
+            );
+
+            try {
+                cadastroFacade.novoCliente(clienteDTO);
+
+                criarInfoAlert("Sucesso!", "Cliente inserido com sucesso");
+                onVoltarClick();
+            } catch (ClienteInvalidoException e) {
+                criarErrorAlert("Cliente inválido!", e.getMessage());
+            } catch (SQLException sql) {
+                criarErrorAlert("Ocorreu um erro", sql.getMessage());
+            }
         }
     }
 
@@ -65,12 +95,47 @@ public class ClienteFormController {
     }
 
     private void criarInfoAlert(String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("INFO");
         alert.setHeaderText(header);
         alert.setContentText(content);
 
         alert.showAndWait();
+    }
+
+    public boolean validarCampos() {
+        String message = "";
+
+        if(tfCEPCliente.getText().isEmpty())
+            message = "O Campo 'CEP' é obrigatório";
+        if(tfNumeroCliente.getText().isEmpty())
+            message = "O Campo 'Número' é obrigatório";
+        if(tfLogradouroCliente.getText().isEmpty())
+            message = "O Campo 'Logradouro' é obrigatório";
+        if(tfCPFCliente.getText().isEmpty())
+            message = "O Campo 'CPF' é obrigatório";
+        if(tfTelefoneCliente.getText().isEmpty())
+            message = "O Campo 'Telefone' é obrigatório";
+        if(tfNomeCliente.getText().isEmpty())
+            message = "O Campo 'Nome' é obrigatório";
+
+        if(message.isEmpty())
+            return true;
+        else {
+            criarErrorAlert("Cadastro inválido!", message);
+            return false;
+        }
+    }
+
+    public void setCampos(ClienteDTO cliente) {
+        this.idCliente = cliente.id();
+        tfNomeCliente.setText(cliente.getNome());
+        tfTelefoneCliente.setText(cliente.getTel());
+        tfCPFCliente.setText(cliente.getCpf());
+        tfLogradouroCliente.setText(cliente.getLogradouro());
+        tfNumeroCliente.setText(String.valueOf(cliente.getNumero()));
+        tfCEPCliente.setText(cliente.getCep());
+        tfComplementoCliente.setText(cliente.getComplemento());
     }
 
     public void setCadastroFacade(CadastroFacade cadastroFacade){
