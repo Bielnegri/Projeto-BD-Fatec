@@ -19,7 +19,7 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
 
     @Override
     public void salvar(Cliente entidade) throws SQLException {
-        String sql = "INSERT INTO Cliente(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cliente(Nome, Telefone, CPF, Logradouro, Numero, CEP, Complemento) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getTel());
@@ -139,7 +139,7 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
         }
 
         if(cont == 0){
-            entidade = new Cliente();
+            return null;
         }
 
         rs.close();

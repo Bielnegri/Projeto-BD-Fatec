@@ -1,5 +1,6 @@
 package fatec.lanchoneteapp.adapters.ui.cliente;
 
+import fatec.lanchoneteapp.application.dto.CargoDTO;
 import fatec.lanchoneteapp.application.dto.ClienteDTO;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import javafx.collections.FXCollections;
@@ -10,8 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +36,7 @@ public class ClienteController implements Initializable {
     @FXML private TableColumn<ClienteDTO, Integer> tcNumeroCliente;
     @FXML private TableColumn<ClienteDTO, String> tcCEPCliente;
     @FXML private TableColumn<ClienteDTO, String> tcComplementoCliente;
+    @FXML private TableColumn<ClienteDTO, Void> tcAcoesCliente;
     @FXML private ObservableList<ClienteDTO> clientesObservableList;
 
     public ClienteController(CadastroFacade cadastroFacade) {
@@ -41,11 +46,56 @@ public class ClienteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tcIDCliente.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tcNomeCliente.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tcTelefoneCliente.setCellValueFactory(new PropertyValueFactory<>("tel"));
+        tcCPFCliente.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        tcLogradouroCliente.setCellValueFactory(new PropertyValueFactory<>("logradouro"));
+        tcNumeroCliente.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        tcCEPCliente.setCellValueFactory(new PropertyValueFactory<>("cep"));
+        tcComplementoCliente.setCellValueFactory(new PropertyValueFactory<>("complemento"));
+
+        fabricanteColunaAcoes.call(tcAcoesCliente);
+
         clientesObservableList = FXCollections.observableArrayList();
         tvListaClientes.setItems(clientesObservableList);
 
         carregarClientes();
     }
+
+    @FXML
+    Callback<TableColumn<ClienteDTO, Void>, TableCell<ClienteDTO, Void>> fabricanteColunaAcoes =
+            ( param ) -> new TableCell<>() {
+                private Button btnApagar = new Button("Apagar");
+                private Button btnEditar = new Button("Editar");
+
+//                {
+//                    btnApagar.setOnAction(click -> {
+//                                onRemoverClick(tvListaClientes.getItems().get(getIndex()));
+//                            }
+//                    );
+//
+//                    btnEditar.setOnAction(click -> {
+//                                try {
+//                                    onAtualizarClick(tvListaClientes.getItems().get(getIndex()));
+//                                } catch (IOException e) {
+//                                    criarErrorAlert("Ocorreu um erro", e.getMessage());
+//                                }
+//                            }
+//                    );
+//                }
+
+                @Override
+                public void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        setGraphic( new HBox(btnApagar, btnEditar) );
+                    } else {
+                        setGraphic( null );
+                    }
+                }
+            };
 
     @FXML
     public void onInserirClick() throws IOException {
@@ -69,7 +119,7 @@ public class ClienteController implements Initializable {
     private void carregarClientes() {
         try {
             clientesObservableList.clear();
-            clientesObservableList.addAll(cadastroFacade.listarClientes());
+            clientesObservableList.addAll(cadastroFacade.listarClientes().stream().toList());
         } catch (SQLException e) {
             criarErrorAlert("Ocorreu um erro", e.getMessage() + "\n" + e.getSQLState());
         }

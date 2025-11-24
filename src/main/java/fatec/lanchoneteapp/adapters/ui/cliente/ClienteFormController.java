@@ -46,6 +46,8 @@ public class ClienteFormController {
 
         try {
             cadastroFacade.novoCliente(clienteDTO);
+            criarInfoAlert("Sucesso!", "Cliente inserido com sucesso");
+            onVoltarClick();
         } catch (ClienteInvalidoException e) {
             criarErrorAlert("Cliente inválido!", e.getMessage());
         } catch (SQLException sql) {
@@ -56,6 +58,15 @@ public class ClienteFormController {
     private void criarErrorAlert(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erro");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }
+
+    private void criarInfoAlert(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("INFO");
         alert.setHeaderText(header);
         alert.setContentText(content);
 

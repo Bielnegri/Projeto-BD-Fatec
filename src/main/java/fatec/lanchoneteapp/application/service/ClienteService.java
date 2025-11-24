@@ -17,7 +17,7 @@ public class ClienteService {
     }
 
     public void criarCliente(Cliente cliente) throws SQLException, ClienteInvalidoException {
-        if(validarCliente(cliente))
+        if(!validarCliente(cliente))
             throw new ClienteInvalidoException("Cliente já cadastrado");
 
         repository.salvar(cliente);

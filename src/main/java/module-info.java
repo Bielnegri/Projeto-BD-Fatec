@@ -12,6 +12,9 @@ module fatec.lanchoneteapp {
     opens fatec.lanchoneteapp.run to javafx.fxml;
     opens fatec.lanchoneteapp.adapters.ui to javafx.fxml;
     opens fatec.lanchoneteapp.application.facade to javafx.fxml;
+    opens fatec.lanchoneteapp.adapters.ui.cargo to javafx.fxml;
+    opens fatec.lanchoneteapp.adapters.ui.categoria to javafx.fxml;
+    opens fatec.lanchoneteapp.adapters.ui.cliente to javafx.fxml;
 
     exports fatec.lanchoneteapp.run;
     exports fatec.lanchoneteapp.adapters.ui;
@@ -29,6 +32,4 @@ module fatec.lanchoneteapp {
     exports fatec.lanchoneteapp.adapters.repository.db;
     exports fatec.lanchoneteapp.application.service;
     exports fatec.lanchoneteapp.domain.entity;
-
-    opens fatec.lanchoneteapp.adapters.ui.cliente to javafx.fxml;
 }
