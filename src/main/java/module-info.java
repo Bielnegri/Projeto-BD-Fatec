@@ -15,6 +15,8 @@ module fatec.lanchoneteapp {
     opens fatec.lanchoneteapp.adapters.ui.cargo to javafx.fxml;
     opens fatec.lanchoneteapp.adapters.ui.categoria to javafx.fxml;
     opens fatec.lanchoneteapp.adapters.ui.cliente to javafx.fxml;
+    opens fatec.lanchoneteapp.adapters.ui.fornecedor to javafx.fxml;
+    opens fatec.lanchoneteapp.adapters.ui.controller to javafx.fxml;
 
     exports fatec.lanchoneteapp.run;
     exports fatec.lanchoneteapp.adapters.ui;
