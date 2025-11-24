@@ -1,16 +1,38 @@
 package fatec.lanchoneteapp.run;
 
+import fatec.lanchoneteapp.adapters.ui.cliente.ClienteController;
+import fatec.lanchoneteapp.config.AppBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main extends Application {
+
+    private AppBuilder builder;
+
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+        builder = new AppBuilder();
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fatec/lanchoneteapp/run/main.fxml"));
+
+        fxmlLoader.setControllerFactory(type -> {
+            if (type == ClienteController.class) {
+                return new ClienteController(builder.getCadastroFacade());
+            }
+
+            // fallback padrão
+            try {
+                return type.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException("Erro ao criar controller: " + type, e);
+            }
+        });
+
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Gerenciamento de Lanchonete");
         stage.setScene(scene);
