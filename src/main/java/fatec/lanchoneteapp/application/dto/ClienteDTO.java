@@ -9,7 +9,8 @@ public record ClienteDTO(
         int numero,
         String cep,
         String complemento
-) {
+) 
+{
     public int getId() { return id; }
     public String getNome() { return nome; }
     public String getTel() { return tel; }

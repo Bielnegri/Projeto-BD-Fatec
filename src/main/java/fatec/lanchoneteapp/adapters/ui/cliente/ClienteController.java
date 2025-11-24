@@ -1,6 +1,5 @@
 package fatec.lanchoneteapp.adapters.ui.cliente;
 
-import fatec.lanchoneteapp.application.dto.CargoDTO;
 import fatec.lanchoneteapp.application.dto.ClienteDTO;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import javafx.collections.FXCollections;
@@ -46,18 +45,6 @@ public class ClienteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        tcIDCliente.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tcNomeCliente.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tcTelefoneCliente.setCellValueFactory(new PropertyValueFactory<>("tel"));
-        tcCPFCliente.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-        tcLogradouroCliente.setCellValueFactory(new PropertyValueFactory<>("logradouro"));
-        tcNumeroCliente.setCellValueFactory(new PropertyValueFactory<>("numero"));
-        tcCEPCliente.setCellValueFactory(new PropertyValueFactory<>("cep"));
-        tcComplementoCliente.setCellValueFactory(new PropertyValueFactory<>("complemento"));
-
-        fabricanteColunaAcoes.call(tcAcoesCliente);
-
         clientesObservableList = FXCollections.observableArrayList();
         tvListaClientes.setItems(clientesObservableList);
 
@@ -117,6 +104,16 @@ public class ClienteController implements Initializable {
     }
 
     private void carregarClientes() {
+        tcIDCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, Integer>("id"));
+        tcNomeCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, String>("nome"));
+        tcTelefoneCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, String>("tel"));
+        tcCPFCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, String>("cpf"));
+        tcLogradouroCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, String>("logradouro"));
+        tcNumeroCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, Integer>("numero"));
+        tcCEPCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, String>("cep"));
+        tcComplementoCliente.setCellValueFactory(new PropertyValueFactory<ClienteDTO, String>("complemento"));
+        tcAcoesCliente.setCellFactory(fabricanteColunaAcoes);
+        
         try {
             clientesObservableList.clear();
             clientesObservableList.addAll(cadastroFacade.listarClientes().stream().toList());

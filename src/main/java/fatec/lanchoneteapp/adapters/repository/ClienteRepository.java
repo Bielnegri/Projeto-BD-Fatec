@@ -81,7 +81,7 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
         }
 
         if(cont == 0){
-            entidade = new Cliente();
+            entidade = null;
         }
 
         rs.close();
@@ -139,7 +139,7 @@ public class ClienteRepository implements RepositoryNoReturn<Cliente> {
         }
 
         if(cont == 0){
-            return null;
+            entidade = null;
         }
 
         rs.close();
