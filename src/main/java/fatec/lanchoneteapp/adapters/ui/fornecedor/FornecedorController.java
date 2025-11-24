@@ -9,6 +9,7 @@ import fatec.lanchoneteapp.adapters.ui.controller.Controller;
 import fatec.lanchoneteapp.adapters.ui.controller.IController;
 import fatec.lanchoneteapp.application.dto.FornecedorDTO;
 import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
+import fatec.lanchoneteapp.application.exception.FornecedorNaoEncontradoException;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,10 +95,11 @@ public class FornecedorController extends Controller implements Initializable, I
         }
     };
 
+    @FXML
     @Override
     public void onInserirClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                "/fatec/lanchoneteapp/run/cliente/CadastroFornecedor.fxml"
+                "/fatec/lanchoneteapp/run/fornecedor/CadastroFornecedor.fxml"
         ));
         Parent form = loader.load();
 
@@ -116,7 +118,7 @@ public class FornecedorController extends Controller implements Initializable, I
     @Override
     public void onAtualizarClick(FornecedorDTO fornecedor) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                "/fatec/lanchoneteapp/run/cliente/CadastroFornecedor.fxml"
+                "/fatec/lanchoneteapp/run/fornecedor/CadastroFornecedor.fxml"
         ));
         Parent form = loader.load();
 
@@ -155,7 +157,7 @@ public class FornecedorController extends Controller implements Initializable, I
             fornecedoresObservableList.addAll(
                     cadastroFacade.buscarFornecedor(Integer.parseInt(tfBuscarFornecedor.getText()))
             );
-        } catch (ClienteNaoEncontradoException e) {
+        } catch (FornecedorNaoEncontradoException e) {
             criarWarningAlert("Fornecedor não encontrado", e.getMessage());
         } catch (SQLException e) {
             criarErrorAlert("Ocorreu um erro", e.getMessage() + "\n" + e.getSQLState());
@@ -168,7 +170,7 @@ public class FornecedorController extends Controller implements Initializable, I
         tcIDFornecedor.setCellValueFactory(new PropertyValueFactory<>("id"));
         tcNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tcTelefoneFornecedor.setCellValueFactory(new PropertyValueFactory<>("tel"));
-        tcCNPJFornecedor.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        tcCNPJFornecedor.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
         tcLogradouroFornecedor.setCellValueFactory(new PropertyValueFactory<>("logradouro"));
         tcNumeroFornecedor.setCellValueFactory(new PropertyValueFactory<>("numero"));
         tcCEPFornecedor.setCellValueFactory(new PropertyValueFactory<>("cep"));

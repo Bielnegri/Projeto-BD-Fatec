@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fatec.lanchoneteapp.adapters.ui.FornecedorController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fatec.lanchoneteapp.adapters.ui.fornecedor.FornecedorController">
     <bottom>
         <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnInserirFornecedor" mnemonicParsing="false" text="Inserir" />
-                <Button fx:id="btnBuscarFornecedor" mnemonicParsing="false" text="Buscar" />
+                <Button fx:id="btnInserirFornecedor" mnemonicParsing="false" onAction="#onInserirClick" text="Inserir" />
+                <Button fx:id="btnBuscarFornecedor" mnemonicParsing="false" onAction="#onBuscarClick" text="Buscar" />
             </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -27,7 +27,7 @@
             </rowConstraints>
             <children>
                 <Label alignment="CENTER" text="Lista de Fornecedors" />
-                <TextField fx:id="tfBuscarFornecedor" promptText="Buscar por ID" GridPane.rowIndex="1" />
+                <TextField fx:id="tfBuscarFornecedor" onAction="#onBuscarClick" promptText="Buscar por ID" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </top>
@@ -36,7 +36,7 @@
         <content>
           <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                <children>
-                  <TableView fx:id="tvListaFornecedors" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tvListaFornecedores" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
                         <TableColumn fx:id="tcIDFornecedor" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" style="-fx-alignment: CENTER;" text="ID" />
                         <TableColumn fx:id="tcNomeFornecedor" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Nome" />
