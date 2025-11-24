@@ -1,6 +1,5 @@
 package fatec.lanchoneteapp.application.service;
 
-import fatec.lanchoneteapp.adapters.repository.ClienteRepository;
 import fatec.lanchoneteapp.application.exception.ClienteInvalidoException;
 import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
 import fatec.lanchoneteapp.application.repository.RepositoryNoReturn;
@@ -18,7 +17,7 @@ public class ClienteService {
     }
 
     public void criarCliente(Cliente cliente) throws SQLException, ClienteInvalidoException {
-        if(!validarCliente(cliente))
+        if(validarCliente(cliente))
             throw new ClienteInvalidoException("Cliente já cadastrado");
 
         repository.salvar(cliente);
@@ -50,6 +49,7 @@ public class ClienteService {
             buscarDuplicata(cliente);
             return true;
         } catch(ClienteInvalidoException e){
+            System.out.println(e.getLocalizedMessage());
             return false;
         }
     }
