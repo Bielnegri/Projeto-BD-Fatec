@@ -12,6 +12,7 @@ import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import fatec.lanchoneteapp.application.facade.PedidoFacade;
 import fatec.lanchoneteapp.application.mapper.ClienteMapper;
 import fatec.lanchoneteapp.application.mapper.ItemPedidoMapper;
+import fatec.lanchoneteapp.domain.entity.ItemPedido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -67,7 +68,7 @@ public class PedidoFormController extends Controller implements IController<Item
         Parent form = loader.load();
 
         ItemPedidoFormController controller = loader.getController();
-        controller.setPedidoFacade(pedidoFacade);
+        controller.setListaItensPedido(itensObservableList);
 
         Stage stage = new Stage();
         stage.setTitle("Adicionar Item");
@@ -78,7 +79,7 @@ public class PedidoFormController extends Controller implements IController<Item
         carregarTabela();
     }
 
-
+    @Override
     public void onAtualizarClick(ItemPedidoDTO itemPedido) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/fatec/lanchoneteapp/run/pedido/CadastroPedido.fxml"
@@ -86,7 +87,7 @@ public class PedidoFormController extends Controller implements IController<Item
         Parent form = loader.load();
 
         ItemPedidoFormController controller = loader.getController();
-        controller.setPedidoFacade(pedidoFacade);
+        controller.setListaItensPedido(itensObservableList);
         controller.setCampos(itemPedido);
 
         Stage stage = new Stage();
@@ -100,17 +101,13 @@ public class PedidoFormController extends Controller implements IController<Item
 
     @Override
     public void onRemoverClick(ItemPedidoDTO itemPedidoDTO) {
-       try{
-           pedidoFacade.removerProduto(itemPedidoDTO);
-       } catch (SQLException e) {
-           criarErrorAlert("Erro", e.getMessage());
-       }
+       itensObservableList.remove(itemPedidoDTO);
     }
 
-
+    //Não é necessária a implementação
     @Override
     public void onBuscarClick() {
-        //implementar busca na tabela de itens do pedido
+        return;
     }
 
     @FXML
@@ -161,13 +158,6 @@ public class PedidoFormController extends Controller implements IController<Item
         tcValorUnitProduto.setCellValueFactory(new PropertyValueFactory<>("status"));
         tcValorTotalProduto.setCellValueFactory(new PropertyValueFactory<>("clienteNome"));
         tcAcoesProduto.setCellFactory(fabricanteColunaAcoes);
-
-        try {
-            itensObservableList.clear();
-            itensObservableList.addAll(pedidoFacade.listarProdutos());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -193,6 +183,10 @@ public class PedidoFormController extends Controller implements IController<Item
 
            try {
                 pedidoFacade.atualizarPedido(pedidoDTO);
+                for (ItemPedido item : pedidoDTO.itensPedido()) {
+                    item.setNumPedido(pedidoDTO.nPedido());
+                    pedidoFacade.atualizarQuantidadeItem(itemPedidoMapper.toDTO(item));
+                }
 
                 criarInfoAlert("Sucesso!", "Produto atualizado com sucesso.");
                 onVoltarClick();
@@ -213,8 +207,12 @@ public class PedidoFormController extends Controller implements IController<Item
             );
 
             try {
-                pedidoFacade.criarPedido(pedidoDTO);
-
+                pedidoDTO = pedidoFacade.criarPedido(pedidoDTO);
+                for (ItemPedido item : pedidoDTO.itensPedido()) {
+                    item.setNumPedido(pedidoDTO.nPedido());
+                    pedidoFacade.adicionarItem(itemPedidoMapper.toDTO(item));
+                }
+                
                 criarInfoAlert("Sucesso!", "Pedido inserido com sucesso");
                 onVoltarClick();
             } catch (ProdutoInvalidoException e) {

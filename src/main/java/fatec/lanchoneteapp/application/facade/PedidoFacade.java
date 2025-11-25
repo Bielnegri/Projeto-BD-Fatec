@@ -55,37 +55,37 @@ public interface PedidoFacade {
     // --- ITENS DO PEDIDO ---
 
     /**
-     * Adiciona um produto a um pedido existente com a quantidade especificada.
+     * Adiciona um Item a um pedido existente com a quantidade especificada.
      *
-     * @param nPedido   o ID do pedido ao qual o produto será adicionado
-     * @param produtoId  o ID do produto que será adicionado ao pedido
-     * @param qtdEstoque a quantidade do produto a ser adicionada ao pedido
+     * @param nPedido   o ID do pedido ao qual o Item será adicionado
+     * @param ItemId  o ID do Item que será adicionado ao pedido
+     * @param qtdEstoque a quantidade do Item a ser adicionada ao pedido
      * @return os detalhes atualizados do pedido encapsulados em um objeto PedidoDTO
      */
-    PedidoDTO adicionarProduto(ItemPedidoDTO itemPedidoDTO) throws SQLException, IllegalArgumentException;
+    PedidoDTO adicionarItem(ItemPedidoDTO itemPedidoDTO) throws SQLException, IllegalArgumentException;
 
     /**
-     * Remove um produto de um pedido existente com base no ID do pedido e no ID do produto.
+     * Remove um Item de um pedido existente com base no ID do pedido e no ID do Item.
      *
-     * @param itemPedidoDTO objeto com nPedido e produtoId a ser removido do pedido
+     * @param itemPedidoDTO objeto com nPedido e ItemId a ser removido do pedido
      * @return os detalhes atualizados do pedido encapsulados em um objeto PedidoDTO
      */
-    PedidoDTO removerProduto(ItemPedidoDTO itemPedidoDTO) throws SQLException;
+    PedidoDTO removerItem(ItemPedidoDTO itemPedidoDTO) throws SQLException;
 
     /**
-     * Atualiza a quantidade de um produto específico em um pedido existente.
+     * Atualiza a quantidade de um Item específico em um pedido existente.
      *
-     * @param itemPedidoDTO objeto com nPedido, produtoId e qtd a ser atualizada no pedido
+     * @param itemPedidoDTO objeto com nPedido, ItemId e qtd a ser atualizada no pedido
      * @return os detalhes atualizados do pedido encapsulados em um objeto PedidoDTO
      */
-    PedidoDTO atualizarQuantidadeProduto(ItemPedidoDTO itemPedidoDTO) throws SQLException;
+    PedidoDTO atualizarQuantidadeItem(ItemPedidoDTO itemPedidoDTO) throws SQLException;
 
     /**
-     * Lista todos os produtos adicionados a um pedido.
+     * Lista todos os Items adicionados a um pedido.
      *
-     * @return uma lista de objetos ItemPedidoDTO representando os produtos disponíveis
+     * @return uma lista de objetos ItemPedidoDTO representando os Items disponíveis
      */
-    List<ItemPedidoDTO> listarProdutos() throws SQLException;
+    List<ItemPedidoDTO> listarItens() throws SQLException;
 
     // --- STATUS ---
 

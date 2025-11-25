@@ -9,8 +9,8 @@ import fatec.lanchoneteapp.application.dto.ItemPedidoDTO;
 import fatec.lanchoneteapp.application.dto.ProdutoDTO;
 import fatec.lanchoneteapp.application.exception.ProdutoInvalidoException;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
-import fatec.lanchoneteapp.application.facade.PedidoFacade;
 import fatec.lanchoneteapp.application.mapper.ProdutoMapper;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
@@ -21,15 +21,16 @@ import javafx.stage.Stage;
 
 public class ItemPedidoFormController extends Controller implements IFormController<ItemPedidoDTO> {
 
-    private PedidoFacade pedidoFacade;
     private CadastroFacade cadastroFacade;
+    private ObservableList<ItemPedidoDTO> listaItensPedido;
+    private ItemPedidoDTO itemPedido;
     private ProdutoMapper produtoMapper = new ProdutoMapper();
 
     // Botões
     @FXML private Button btnVoltarItemPedido;
 
     //Campos
-    private int itemPedidoId;
+    private int numPedido;
     @FXML private TextField tfProdutoItemPedido;
     @FXML private TextField tfQuantidadeItemPedido;
     @FXML private TextField tfValorUnitItemPedido;
@@ -50,9 +51,9 @@ public class ItemPedidoFormController extends Controller implements IFormControl
         if(!validarCampos())
             return;
 
-        if(itemPedidoId > 0){
-            ItemPedidoDTO pedidoDTO = new ItemPedidoDTO(
-                itemPedidoId,
+        if(numPedido > 0){
+            ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO(
+                numPedido,
                 produtoMapper.toEntity(produtoSelecionado),
                 Integer.parseInt(tfQuantidadeItemPedido.getText()),
                 Double.parseDouble(tfValorUnitItemPedido.getText()),
@@ -60,15 +61,12 @@ public class ItemPedidoFormController extends Controller implements IFormControl
             );
 
            try {
-                pedidoFacade.atualizarQuantidadeProduto(pedidoDTO);
-
+                this.itemPedido = itemPedidoDTO;
                 criarInfoAlert("Sucesso!", "Item atualizado com sucesso.");
                 onVoltarClick();
            } catch (ProdutoInvalidoException e) {
-               criarErrorAlert("Produto inválido!", e.getMessage());
-           } catch (SQLException sql) {
-               criarErrorAlert("Ocorreu um erro", sql.getMessage());
-           }
+               criarErrorAlert("Item do Pedido inválido!", e.getMessage());
+           } 
         }
         else {
             ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO(
@@ -80,24 +78,23 @@ public class ItemPedidoFormController extends Controller implements IFormControl
             );
 
             try {
-                pedidoFacade.adicionarProduto(itemPedidoDTO);
+                this.listaItensPedido.add(itemPedidoDTO);
 
                 criarInfoAlert("Sucesso!", "Item inserido com sucesso");
                 onVoltarClick();
             } catch (ProdutoInvalidoException e) {
-                criarErrorAlert("Pedido inválido!", e.getMessage());
-            } catch (SQLException sql) {
-                criarErrorAlert("Ocorreu um erro", sql.getMessage());
+                criarErrorAlert("Item do Pedido inválido!", e.getMessage());
             }
         }
     }
 
     @Override
     public void setCampos(ItemPedidoDTO itemPedidoDTO) {
-        this.itemPedidoId = itemPedidoDTO.nPedido();
+        this.numPedido = itemPedidoDTO.nPedido();
         tfProdutoItemPedido.setText(itemPedidoDTO.getProdutoDTO().getNome());
         tfQuantidadeItemPedido.setText(String.valueOf(itemPedidoDTO.getQtd()));
         tfValorUnitItemPedido.setText(String.valueOf(itemPedidoDTO.getValorUn()));
+        this.itemPedido = itemPedidoDTO;
     }
 
     @Override
@@ -118,9 +115,9 @@ public class ItemPedidoFormController extends Controller implements IFormControl
         }
     }
 
-    public void setPedidoFacade(PedidoFacade pedidoFacade) {
-        this.pedidoFacade = pedidoFacade;
-
+    public void setListaItensPedido(ObservableList<ItemPedidoDTO> listaItensPedido) {
+        this.listaItensPedido = listaItensPedido;
+        
         produtosMenu = new ContextMenu();
         carregarProdutos();
         configurarAutocomplete();

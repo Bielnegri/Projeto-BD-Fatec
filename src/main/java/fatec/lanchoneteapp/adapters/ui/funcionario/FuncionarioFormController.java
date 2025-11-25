@@ -4,23 +4,19 @@ import fatec.lanchoneteapp.adapters.ui.controller.Controller;
 import fatec.lanchoneteapp.adapters.ui.controller.IFormController;
 import fatec.lanchoneteapp.application.dto.CargoDTO;
 import fatec.lanchoneteapp.application.dto.FuncionarioDTO;
-import fatec.lanchoneteapp.application.exception.ClienteInvalidoException;
 import fatec.lanchoneteapp.application.exception.FornecedorInvalidoException;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import fatec.lanchoneteapp.application.mapper.CargoMapper;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class FuncionarioFormController extends Controller implements IFormController<FuncionarioDTO> {
 

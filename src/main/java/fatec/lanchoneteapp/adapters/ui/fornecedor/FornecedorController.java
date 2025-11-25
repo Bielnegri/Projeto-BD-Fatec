@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import fatec.lanchoneteapp.adapters.ui.controller.Controller;
 import fatec.lanchoneteapp.adapters.ui.controller.IController;
 import fatec.lanchoneteapp.application.dto.FornecedorDTO;
-import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
 import fatec.lanchoneteapp.application.exception.FornecedorNaoEncontradoException;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import javafx.collections.FXCollections;

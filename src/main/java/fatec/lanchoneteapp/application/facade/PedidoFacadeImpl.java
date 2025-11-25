@@ -50,6 +50,11 @@ public class PedidoFacadeImpl implements PedidoFacade{
     }
 
     @Override
+    public void atualizarPedido(PedidoDTO pedidoDTO) throws SQLException {
+        pedidoService.atualizarPedido(pedidoMapper.toEntity(pedidoDTO));
+    }
+
+    @Override
     public PedidoDTO buscarPedido(int nPedido) throws SQLException {
         Pedido pedido = pedidoService.buscarPedido(nPedido);
         return pedidoMapper.toDTO(pedido);
@@ -73,7 +78,17 @@ public class PedidoFacadeImpl implements PedidoFacade{
     }
 
     @Override
-    public PedidoDTO adicionarProduto(ItemPedidoDTO itemPedidoDTO) throws SQLException, IllegalArgumentException {
+    public PedidoDTO atualizarStatus(PedidoDTO pedidoDTO) throws SQLException {
+        Pedido pedido = pedidoService.buscarPedido(pedidoDTO.nPedido());
+
+        manterPedidoUC.atualizarStatus(pedido, pedidoDTO.status());
+
+        pedidoService.atualizarPedido(pedido);
+        return pedidoMapper.toDTO(pedido);
+    }
+
+    @Override
+    public PedidoDTO adicionarItem(ItemPedidoDTO itemPedidoDTO) throws SQLException, IllegalArgumentException {
         Pedido pedido = pedidoService.buscarPedido(itemPedidoDTO.nPedido());
         Produto produto = produtoService.buscarProduto(itemPedidoDTO.produto().getId());
         ItemPedido item = new ItemPedido(itemPedidoDTO.nPedido(), produto, itemPedidoDTO.qtd());
@@ -87,7 +102,7 @@ public class PedidoFacadeImpl implements PedidoFacade{
     }
 
     @Override
-    public PedidoDTO removerProduto(ItemPedidoDTO itemPedidoDTO) throws SQLException {
+    public PedidoDTO removerItem(ItemPedidoDTO itemPedidoDTO) throws SQLException {
         Pedido pedido = pedidoService.buscarPedido(itemPedidoDTO.nPedido());
         ItemPedido item = itemPedidoService.buscarItem(itemPedidoDTO.nPedido(), itemPedidoDTO.produto());
 
@@ -99,7 +114,7 @@ public class PedidoFacadeImpl implements PedidoFacade{
     }
 
     @Override
-    public PedidoDTO atualizarQuantidadeProduto(ItemPedidoDTO itemPedidoDTO) throws SQLException {
+    public PedidoDTO atualizarQuantidadeItem(ItemPedidoDTO itemPedidoDTO) throws SQLException {
         ItemPedido item = itemPedidoService.buscarItem(itemPedidoDTO.nPedido(), itemPedidoDTO.produto());
         Pedido pedido = pedidoService.buscarPedido(itemPedidoDTO.nPedido());
 
@@ -111,22 +126,7 @@ public class PedidoFacadeImpl implements PedidoFacade{
     }
 
     @Override
-    public PedidoDTO atualizarStatus(PedidoDTO pedidoDTO) throws SQLException {
-        Pedido pedido = pedidoService.buscarPedido(pedidoDTO.nPedido());
-
-        manterPedidoUC.atualizarStatus(pedido, pedidoDTO.status());
-
-        pedidoService.atualizarPedido(pedido);
-        return pedidoMapper.toDTO(pedido);
-    }
-
-    @Override
-    public void atualizarPedido(PedidoDTO pedidoDTO) throws SQLException {
-        pedidoService.atualizarPedido(pedidoMapper.toEntity(pedidoDTO));
-    }
-
-    @Override
-    public List<ItemPedidoDTO> listarProdutos() throws SQLException {
+    public List<ItemPedidoDTO> listarItens() throws SQLException {
         return itemPedidoService.listarItens().stream()
                 .map(itemPedidoMapper::toDTO)
                 .toList();

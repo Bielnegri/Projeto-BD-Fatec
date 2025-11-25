@@ -1,10 +1,8 @@
 package fatec.lanchoneteapp.adapters.ui.funcionario;
 
-import fatec.lanchoneteapp.adapters.ui.cliente.ClienteFormController;
 import fatec.lanchoneteapp.adapters.ui.controller.Controller;
 import fatec.lanchoneteapp.adapters.ui.controller.IController;
 import fatec.lanchoneteapp.application.dto.FuncionarioDTO;
-import fatec.lanchoneteapp.application.exception.ClienteNaoEncontradoException;
 import fatec.lanchoneteapp.application.exception.FuncionarioNaoEncontradoException;
 import fatec.lanchoneteapp.application.facade.CadastroFacade;
 import javafx.collections.FXCollections;
