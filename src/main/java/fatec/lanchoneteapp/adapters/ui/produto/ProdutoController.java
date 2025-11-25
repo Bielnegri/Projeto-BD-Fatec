@@ -171,7 +171,7 @@ public class ProdutoController extends Controller implements Initializable, ICon
 
         try {
             produtosObservableList.clear();
-            produtosObservableList.addAll(cadastroFacade.listarProdutos());
+            produtosObservableList.addAll(cadastroFacade.listarProdutos().stream().toList());
         } catch (SQLException e) {
             criarErrorAlert("Ocorreu um erro", e.getMessage() + "\n" + e.getSQLState());
         }
