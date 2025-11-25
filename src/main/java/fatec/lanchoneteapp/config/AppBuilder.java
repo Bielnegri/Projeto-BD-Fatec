@@ -33,7 +33,6 @@ public class AppBuilder {
     private final FuncionarioService funcionarioService;
     private final ProdutoService produtoService;
     private final ItemPedidoService itemPedidoService;
-    private final ProdutoFornecedorService produtoFornecedorService;
 
     // Repositories
     private final RepositoryNoReturn<Cliente> clienteRepository;
@@ -44,7 +43,6 @@ public class AppBuilder {
     private final RepositoryNoReturn<Funcionario> funcionarioRepository;
     private final RepositoryReturn<Produto> produtoRepository;
     private final RepositoryNoReturn<ItemPedido> itemPedidoRepository;
-    private final RepositoryNoReturn<ProdutoFornecedor> produtoFornecedorRepository;
 
     public AppBuilder() throws SQLException, ClassNotFoundException {
         c = new SQLServerConnection();
@@ -58,7 +56,6 @@ public class AppBuilder {
         funcionarioRepository = new FuncionarioRepository(c.getConnection());
         produtoRepository = new ProdutoRepository(c.getConnection());
         itemPedidoRepository = new ItemPedidoRepository(c.getConnection());
-        produtoFornecedorRepository = new ProdutoFornecedorRepository(c.getConnection());
 
         // instancia services
         clienteService = new ClienteService(clienteRepository);
@@ -69,7 +66,6 @@ public class AppBuilder {
         funcionarioService = new FuncionarioService(funcionarioRepository);
         produtoService = new ProdutoService(produtoRepository);
         itemPedidoService = new ItemPedidoService(itemPedidoRepository);
-        produtoFornecedorService = new ProdutoFornecedorService(produtoFornecedorRepository);
 
         // instancia facades
         cadastroFacade = new CadastroFacadeImpl(clienteService, funcionarioService, produtoService, cargoService, categoriaService, fornecedorService);
