@@ -67,7 +67,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
     public Produto buscarPorID(Produto entidade) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.ID AS ID_Produto, p.Nome AS Nome_Produto, p.QtdEstoque, p.ValorUnit, ");
-        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao ");
+        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao, ");
         sql.append("f.ID AS ID_Fornecedor, f.Nome AS Nome_Fornecedor, f.Telefone, f.CNPJ, f.Logradouro, f.Numero, f.CEP, f.Complemento ");
         sql.append("FROM Produto p INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
@@ -119,7 +119,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
     public List<Produto> listar() throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.ID AS ID_Produto, p.Nome AS Nome_Produto, p.QtdEstoque, p.ValorUnit, ");
-        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao ");
+        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao, ");
         sql.append("f.ID AS ID_Fornecedor, f.Nome AS Nome_Fornecedor, f.Telefone, f.CNPJ, f.Logradouro, f.Numero, f.CEP, f.Complemento ");
         sql.append("FROM Produto p INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
@@ -152,6 +152,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
             entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
             entidade.setValorUn(rs.getDouble("ValorUnit"));
             entidade.setCategoria(categoria);
+            entidade.setFornecedor(fornecedor);
 
             entidades.add(entidade);
         }
@@ -165,7 +166,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
     public Produto buscarPorChaveSecundaria(Produto entidade) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.ID AS ID_Produto, p.Nome AS Nome_Produto, p.QtdEstoque, p.ValorUnit, ");
-        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao ");
+        sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao, ");
         sql.append("f.ID AS ID_Fornecedor, f.Nome AS Nome_Fornecedor, f.Telefone, f.CNPJ, f.Logradouro, f.Numero, f.CEP, f.Complemento ");
         sql.append("FROM Produto p INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
@@ -199,6 +200,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
             entidade.setQntdEstoq(rs.getInt("QtdEstoque"));
             entidade.setValorUn(rs.getDouble("ValorUnit"));
             entidade.setCategoria(categoria);
+            entidade.setFornecedor(fornecedor);
 
             cont++;
         }
