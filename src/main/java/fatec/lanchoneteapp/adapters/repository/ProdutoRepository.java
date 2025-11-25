@@ -130,7 +130,7 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         List<Produto> entidades = new ArrayList<>();
         ResultSet rs = ps.executeQuery();
 
-        if(rs.next()){
+        while(rs.next()){
             Categoria categoria = new Categoria();
             categoria.setId(rs.getInt("ID_Categoria"));
             categoria.setNome(rs.getString("Nome_Categoria"));
