@@ -36,4 +36,6 @@ module fatec.lanchoneteapp {
     exports fatec.lanchoneteapp.domain.entity;
     exports fatec.lanchoneteapp.adapters.ui.funcionario;
     opens fatec.lanchoneteapp.adapters.ui.funcionario to javafx.fxml;
+    exports fatec.lanchoneteapp.adapters.ui.produto;
+    opens fatec.lanchoneteapp.adapters.ui.produto to javafx.fxml;
 }
