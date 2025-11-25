@@ -54,6 +54,10 @@ public class PedidoRepository implements RepositoryReturn<Pedido> {
         ps.close();
     }
 
+    //Por conta da regra de negócio, não será possível excluir um pedido
+    //Mas o método foi implementado para garantir que todas as operações de CRUD
+    //estejam presentes na classe de repositório, permitindo assim futuras que alterações
+    //na regra de negócio sejam implementadas facilmente.
     @Override
     public void excluir(Pedido entidade) throws SQLException {
         String sql = "DELETE FROM Pedido WHERE Num_Pedido = ?";
