@@ -129,10 +129,10 @@ public class ProdutoFornecedorRepository implements RepositoryNoReturn<ProdutoFo
         sql.append("ON pf.ID_Produto = p.ID ");
         sql.append("INNER JOIN Fornecedor f ");
         sql.append("ON pf.ID_Fornecedor = f.ID ");
-        sql.append("WHERE p.Nome LIKE ?% AND f.Nome LIKE ?%");
+        sql.append("WHERE p.Nome LIKE ? AND f.Nome LIKE ?");
         PreparedStatement ps = connection.prepareStatement(sql.toString());
-        ps.setString(1, entidade.getNomeProduto());
-        ps.setString(2, entidade.getNomeFornecedor());
+        ps.setString(1, entidade.getNomeProduto() + "%");
+        ps.setString(2, entidade.getNomeFornecedor() + "%");
 
         int cont = 0;
         ResultSet rs = ps.executeQuery();
