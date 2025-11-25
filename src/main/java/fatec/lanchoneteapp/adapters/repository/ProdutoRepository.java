@@ -139,9 +139,9 @@ public class ProdutoRepository implements RepositoryReturn<Produto> {
         sql.append("c.ID AS ID_Categoria, c.Nome AS Nome_Categoria, c.Descricao ");
         sql.append("FROM Produto p INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
-        sql.append("WHERE p.Nome LIKE ?%");
+        sql.append("WHERE p.Nome LIKE ?");
         PreparedStatement ps = connection.prepareStatement(sql.toString());
-        ps.setString(1, entidade.getNome());
+        ps.setString(1, entidade.getNome() + "%");
 
         int cont = 0;
         ResultSet rs = ps.executeQuery();

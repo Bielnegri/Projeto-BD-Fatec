@@ -160,9 +160,9 @@ public class ItemPedidoRepository implements RepositoryNoReturn<ItemPedido>{
         sql.append("ON ip.ID_Produto = p.ID ");
         sql.append("INNER JOIN Categoria c ");
         sql.append("ON p.ID_Categoria = c.ID ");
-        sql.append("WHERE p.Nome = ?");
+        sql.append("WHERE p.Nome LIKE ?");
         PreparedStatement ps = connection.prepareStatement(sql.toString());
-        ps.setString(1, entidade.getProduto().getNome());
+        ps.setString(1, entidade.getProduto().getNome() + "%");
 
         int cont = 0;
         ResultSet rs = ps.executeQuery();

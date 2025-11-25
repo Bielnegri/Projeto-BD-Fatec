@@ -97,9 +97,9 @@ public class CategoriaRepository implements RepositoryNoReturn<Categoria> {
 
     @Override
     public Categoria buscarPorChaveSecundaria(Categoria entidade) throws SQLException {
-       String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE Nome LIKE ?%";
+       String sql = "SELECT ID, Nome, Descricao FROM Categoria WHERE Nome LIKE ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, entidade.getNome());
+        ps.setString(1, entidade.getNome() + "%");
 
         int cont = 0;
         ResultSet rs = ps.executeQuery();
