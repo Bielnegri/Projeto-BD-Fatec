@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
   <img src="https://img.shields.io/github/last-commit/andrelamego/lanchonete-app?color=blue&style=flat-square" />
   <img src="https://img.shields.io/github/commit-activity/m/andrelamego/lanchonete-app?color=yellow&style=flat-square" />
-  <img src="https://img.shields.io/badge/status-Fase%20Inicial%20de%20Desenvolvimento-red?style=flat-square" />
+  <img src="https://img.shields.io/badge/status-Fase%20Final%20de%20Desenvolvimento-red?style=flat-square" />
 </p>
 
 ---
